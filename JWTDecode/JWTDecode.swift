@@ -101,7 +101,15 @@ public struct Claim {
         if let string = self.string {
             integer = Int(string)
         } else {
-            integer = self.value as? Int
+            if let integerValue = self.value as? Int {
+                integer = integerValue
+            } else {
+                if let double = self.double {
+                    integer = Int(double.rounded())
+                } else {
+                    integer = nil
+                }
+            }
         }
         return integer
     }
